@@ -1,0 +1,4 @@
+bun tsc --noEmit
+bun eslint src tests
+bun prettier --check src tests
+bun vitest --run
