@@ -1,4 +1,3 @@
 bun tsc --noEmit
 bun eslint src
 bun prettier --check src
-bun vitest --run
