@@ -1,9 +1,9 @@
-import { AwsCliCheck } from "~/apps/aws-cli.ts";
-import { BunCheck } from "~/apps/bun.ts";
-import { DenoCheck } from "~/apps/deno.ts";
-import { NerdFontsCheck } from "~/apps/nerd-fonts.ts";
-import { OhMyPoshCheck } from "~/apps/oh-my-posh.ts";
-import { TerraformCheck } from "~/apps/terraform.ts";
+import { AwsCliCheck } from "~/apps/aws-cli";
+import { BunCheck } from "~/apps/bun";
+import { DenoCheck } from "~/apps/deno";
+import { NerdFontsCheck } from "~/apps/nerd-fonts";
+import { OhMyPoshCheck } from "~/apps/oh-my-posh";
+import { TerraformCheck } from "~/apps/terraform";
 
 await new AwsCliCheck().update();
 await new BunCheck().update();

@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { AppCheck } from "~/interfaces/app-check.ts";
-import { directories } from "~/util/constants.ts";
+import { AppCheck } from "~/interfaces/app-check";
+import { directories } from "~/util/constants";
 
 export class OhMyPoshCheck extends AppCheck {
   constructor() {

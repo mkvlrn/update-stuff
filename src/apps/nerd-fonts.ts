@@ -2,9 +2,9 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import AdmZip from "adm-zip";
 import opentype from "opentype.js";
-import { AppCheck } from "~/interfaces/app-check.ts";
-import { directories } from "~/util/constants.ts";
-import { downloadBatch } from "~/util/download-worker.ts";
+import { AppCheck } from "~/interfaces/app-check";
+import { directories } from "~/util/constants";
+import { downloadBatch } from "~/util/download-worker";
 
 export class NerdFontsCheck extends AppCheck {
   constructor() {
