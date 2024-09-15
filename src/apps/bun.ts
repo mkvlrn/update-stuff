@@ -27,7 +27,7 @@ export class BunCheck extends AppCheck {
     const zipPath = path.join(directories.TEMP_DIR, "bun.zip");
 
     if (response.ok) {
-      await fs.writeFile(zipPath, new Uint8Array(await response.arrayBuffer()));
+      await Bun.write(zipPath, new Uint8Array(await response.arrayBuffer()));
 
       const zip = new AdmZip(zipPath);
       const temporaryExtractedPath = path.join(directories.TEMP_DIR, "bun-linux-x64");

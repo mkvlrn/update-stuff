@@ -1,1 +1,1 @@
-export { base as default } from "@mkvlrn/eslint";
+export { base as default } from "@mkvlrn/configurations/eslint";

@@ -28,7 +28,7 @@ export class TerraformCheck extends AppCheck {
     const zipPath = path.join(directories.TEMP_DIR, "terraform.zip");
 
     if (response.ok) {
-      await fs.writeFile(zipPath, new Uint8Array(await response.arrayBuffer()));
+      await Bun.write(zipPath, new Uint8Array(await response.arrayBuffer()));
 
       const zip = new AdmZip(zipPath);
       zip.extractEntryTo("terraform", directories.BIN_DIR, true);

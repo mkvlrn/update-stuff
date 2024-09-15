@@ -3,11 +3,11 @@
 build
 dist
 out
+bin
 .swc
 *.tsbuildinfo
 .turbo
 .vercel
-bin
 
 # dependencies
 node_modules

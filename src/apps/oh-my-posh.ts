@@ -26,7 +26,7 @@ export class OhMyPoshCheck extends AppCheck {
     const filePath = path.join(directories.BIN_DIR, "oh-my-posh");
 
     if (response.ok) {
-      await fs.writeFile(filePath, new Uint8Array(await response.arrayBuffer()));
+      await Bun.write(filePath, new Uint8Array(await response.arrayBuffer()));
       await fs.chmod(filePath, 0o755);
     } else {
       throw new Error(`Failed to download oh-my-posh ${version}`);

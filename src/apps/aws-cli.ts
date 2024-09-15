@@ -35,7 +35,7 @@ export class AwsCliCheck extends AppCheck {
     const installDirectory = path.join(directories.INSTALL_DIR, "aws-cli");
 
     if (response.ok) {
-      await fs.writeFile(zipPath, new Uint8Array(await response.arrayBuffer()));
+      await Bun.write(zipPath, new Uint8Array(await response.arrayBuffer()));
       const zip = new AdmZip(zipPath);
       zip.extractAllTo(directories.TEMP_DIR, true);
 
