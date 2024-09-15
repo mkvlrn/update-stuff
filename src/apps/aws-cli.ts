@@ -23,7 +23,7 @@ export class AwsCliCheck extends AppCheck {
   }
 
   protected async checkLatestVersion(): Promise<string> {
-    const version = await this.checkGithubTags("aws/aws-cli");
+    const version = await this.getLatestTag("aws/aws-cli");
 
     return version;
   }
@@ -41,8 +41,8 @@ export class AwsCliCheck extends AppCheck {
 
       // clean up old install
       await fs.rmdir(installDirectory, { recursive: true });
-      await fs.rm(path.join(directories.BIN_DIR, "aws"));
-      await fs.rm(path.join(directories.BIN_DIR, "aws_completer"));
+      await fs.rm(path.join(directories.BIN_DIR, "aws"), { force: true });
+      await fs.rm(path.join(directories.BIN_DIR, "aws_completer"), { force: true });
 
       // install new version
       await fs.cp(

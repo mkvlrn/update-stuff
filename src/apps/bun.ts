@@ -16,7 +16,7 @@ export class BunCheck extends AppCheck {
   }
 
   protected async checkLatestVersion(): Promise<string> {
-    const version = await this.checkGithubTags("oven-sh/bun", /^bun-v\d+\.\d+\.\d+$/);
+    const version = await this.getLatestTag("oven-sh/bun", /^bun-v\d+\.\d+\.\d+$/);
 
     return version;
   }

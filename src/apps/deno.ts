@@ -16,7 +16,7 @@ export class DenoCheck extends AppCheck {
   }
 
   protected async checkLatestVersion(): Promise<string> {
-    const version = await this.checkGithubTags("denoland/deno");
+    const version = await this.getLatestTag("denoland/deno");
 
     return version;
   }
@@ -31,6 +31,7 @@ export class DenoCheck extends AppCheck {
 
       const zip = new AdmZip(zipPath);
       zip.extractAllTo(directories.BIN_DIR, true);
+      await fs.chmod(path.join(directories.BIN_DIR, "deno"), 0o755);
 
       await fs.rm(zipPath);
     } else {

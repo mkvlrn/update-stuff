@@ -4,7 +4,6 @@ import AdmZip from "adm-zip";
 import opentype from "opentype.js";
 import { AppCheck } from "~/interfaces/app-check";
 import { directories } from "~/util/constants";
-import { downloadBatch } from "~/util/download-worker";
 
 export class NerdFontsCheck extends AppCheck {
   constructor() {
@@ -12,11 +11,7 @@ export class NerdFontsCheck extends AppCheck {
   }
 
   protected async checkInstalledVersion(): Promise<string> {
-    const fontsDirectory = path.join(
-      directories.INSTALL_DIR,
-
-      "nerd-fonts",
-    );
+    const fontsDirectory = path.join(directories.INSTALL_DIR, "nerd-fonts");
 
     try {
       await fs.stat(fontsDirectory);
@@ -42,7 +37,7 @@ export class NerdFontsCheck extends AppCheck {
   }
 
   protected async checkLatestVersion(): Promise<string> {
-    const version = await this.checkGithubTags("ryanoasis/nerd-fonts");
+    const version = await this.getLatestTag("ryanoasis/nerd-fonts");
 
     return version;
   }
@@ -66,12 +61,12 @@ export class NerdFontsCheck extends AppCheck {
       await fs.rmdir(FONTS_DIR, { recursive: true });
     } catch (error) {
       // eslint-disable-next-line no-console
-      console.log(error);
+      console.error(error);
     } finally {
       await fs.mkdir(FONTS_DIR);
     }
 
-    await downloadBatch(
+    await this.downloadFonts(
       fontUrls,
       fontNames.map((fontName) => path.join(directories.TEMP_DIR, `${fontName}.zip`)),
     );
@@ -81,6 +76,23 @@ export class NerdFontsCheck extends AppCheck {
       zip.extractAllTo(FONTS_DIR, true);
 
       await fs.rm(path.join(directories.TEMP_DIR, `${fontName}.zip`));
+    }
+  }
+
+  private async downloadFonts(fonts: string[], destinations: string[]) {
+    const promises = fonts.map(async (url, index) => {
+      const response = await fetch(url);
+      await Bun.write(
+        destinations[index],
+        new Uint8Array(await response.arrayBuffer()),
+      );
+    });
+
+    try {
+      await Promise.all(promises);
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error(error);
     }
   }
 }
