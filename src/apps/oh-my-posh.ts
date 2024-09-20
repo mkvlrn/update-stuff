@@ -15,7 +15,7 @@ export class OhMyPoshCheck extends AppCheck {
   }
 
   protected async checkLatestVersion(): Promise<string> {
-    const version = await this.getLatestTag("JanDeDobbeleer/oh-my-posh");
+    const version = await this.getLastestGithubTag("JanDeDobbeleer/oh-my-posh");
 
     return version;
   }

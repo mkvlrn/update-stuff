@@ -22,7 +22,7 @@ export abstract class AppCheck {
     }
   }
 
-  protected async getLatestTag(
+  protected async getLastestGithubTag(
     repo: string,
     mask: RegExp | null = null,
   ): Promise<string> {
@@ -45,24 +45,6 @@ export abstract class AppCheck {
     }
 
     throw new Error(`Failed to check github tags for ${this.name}`);
-  }
-
-  protected async getLatestRelease(repo: string): Promise<string> {
-    const { GENERIC_GITHUB_TOKEN } = process.env;
-
-    const result = await fetch(`https://api.github.com/repos/${repo}/releases/latest`, {
-      headers: {
-        Authorization: `Bearer ${GENERIC_GITHUB_TOKEN}`,
-      },
-    });
-
-    if (result.ok) {
-      const data = (await result.json()) as { tag_name: string };
-
-      return data.tag_name;
-    }
-
-    throw new Error(`Failed to check github releases for ${this.name}`);
   }
 
   public async update(): Promise<void> {

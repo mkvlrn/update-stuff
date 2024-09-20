@@ -23,7 +23,7 @@ export class AwsCliCheck extends AppCheck {
   }
 
   protected async checkLatestVersion(): Promise<string> {
-    const version = await this.getLatestTag("aws/aws-cli");
+    const version = await this.getLastestGithubTag("aws/aws-cli");
 
     return version;
   }

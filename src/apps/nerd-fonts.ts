@@ -37,7 +37,7 @@ export class NerdFontsCheck extends AppCheck {
   }
 
   protected async checkLatestVersion(): Promise<string> {
-    const version = await this.getLatestTag("ryanoasis/nerd-fonts");
+    const version = await this.getLastestGithubTag("ryanoasis/nerd-fonts");
 
     return version;
   }

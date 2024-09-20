@@ -16,7 +16,7 @@ export class DenoCheck extends AppCheck {
   }
 
   protected async checkLatestVersion(): Promise<string> {
-    const version = await this.getLatestTag("denoland/deno");
+    const version = await this.getLastestGithubTag("denoland/deno");
 
     return version;
   }
