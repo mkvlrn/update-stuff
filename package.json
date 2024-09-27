@@ -4,8 +4,13 @@
   "type": "module",
   "scripts": {
     "dev": "bun run src/main.ts",
-    "build": "bun build src/main.ts --compile --minify --sourcemap --target bun-linux-x64 --outfile ./bin/update-stuff",
-    "postbuild": "cp ./bin/update-stuff $HOME/.local/bin/update-stuff",
+    "build": "bun build src/main.ts --minify --target bun --outfile ./bin/update-stuff.bun",
+    "misc:clean": "rm -rf $HOME/.local/share/homemade/update-stuff && rm -rf $HOME/.local/bin/update-stuff",
+    "misc:copy": "mkdir -p $HOME/.local/share/homemade/update-stuff && cp ./bin/update-stuff.bun $HOME/.local/share/homemade/update-stuff/update-stuff.bun",
+    "misc:script": "echo 'bun run $HOME/.local/share/homemade/update-stuff/update-stuff.bun' > $HOME/.local/share/homemade/update-stuff/update-stuff.sh",
+    "misc:make-executable": "chmod +x $HOME/.local/share/homemade/update-stuff/update-stuff.sh",
+    "misc:link": "ln -s $HOME/.local/share/homemade/update-stuff/update-stuff.sh $HOME/.local/bin/update-stuff",
+    "postbuild": "bun run misc:clean && bun run misc:copy && bun run misc:script && bun run misc:make-executable && bun run misc:link",
     "prepare": "husky"
   },
   "devDependencies": {
